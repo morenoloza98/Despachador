@@ -30,29 +30,43 @@ public class Despachador
     }
 
     public void  despacha() {
-        // primero, se asignan tantos procesos cuantos micros hayan.
-        for (int i=0; i<listaProcesos.size() && i<listaMicros.size(); i++) {
-            System.out.println("Proceso " + listaProcesos.peek().getId() + " a:" + listaMicros.get(i));
-            listaMicros.get(i).process(listaProcesos.remove());
-        }
-        // en adelante tenemos que discriminar por tiempos de micro,
+        // Discriminar por tiempos de micro,
         while (listaProcesos.size()!=0){
-            // debe leer los tiempos de todos los micros y escoger el de menor tiempo.
+            // debe leer los tiempos de todos los micros y escoger el de menor tiempo, cuidando prioridad de id.
             // el de menor tiempo se le asigna y procesa el primer proceso en la cola.
             System.out.println("Proceso " + listaProcesos.peek().getId() + " a:" + this.chooseMicro());
             this.chooseMicro().process(listaProcesos.remove());
         }
-        // en teoría ya acabamos los procesos en este punto. Los micros se van a empty.
-        System.out.println("Finished processing all. ");
-        for (Micro m : listaMicros){
-            m.setEmpty(true);
-            }
+        // en teoría ya acabamos los procesos en este punto. Se quedan no-vacíos por ahora.
+        System.out.println("Finished processing batch. ");
     }
+
+    public void hacerHuecos(int nextStartTime) {
+        for (Micro m: listaMicros) {
+            if (m.getTiempoTotal()<nextStartTime) {
+                m.wait(nextStartTime);
+            }       // aquellos que no cumplen la condición tienen tiempo de uso igual o mayor al nextStartTime. No se les hace nada.
+        }
+    }
+
     public Micro chooseMicro(){
         Micro min = Collections.min(listaMicros);
         return min;
     }
     public ArrayList<Micro> getListaMicros() {
         return listaMicros;
+    }
+
+    public void imprimirTablas(){
+        for (Micro m: listaMicros){
+            System.out.println("Micro: " + m.getId());
+            System.out.println("Proceso\t TCC\t TE \t TVC\t TB \t TT \t TI \t TF");
+            for (Proceso p : m.getTerminados()){
+                System.out.format("%3s%8d%8d%8d%8d%8d%8d%8d%n", p.getId(), p.getTCC(), p.getExeTime(), p.getTVC(), p.getTB(),
+                        p.getTotal(), p.gettInicial(), p.gettFinal());
+            }
+            System.out.println("Tiempo total Micro " + m.getId() + " = " + m.getTiempoTotal());
+            System.out.println();
+        }
     }
 }

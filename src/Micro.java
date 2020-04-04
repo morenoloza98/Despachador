@@ -26,14 +26,32 @@ public class Micro implements Comparable<Micro> {
         int pTime = 0;
         if (!isEmpty){
             pTime += context;
+            p.setTCC(context);
         }
         pTime = pTime + p.getExeTime() + this.calculateTVC(p) + this.calculateBlock(p);
-        this.tiempoTotal += pTime;
+        p.setTotal(pTime);
+        p.setTVC(this.calculateTVC(p));
+        p.setTB(this.calculateBlock(p));
         p.settFinal(p.getInicial() + pTime);
+
+        this.tiempoTotal += pTime;
         this.terminados.add(p);
         this.setEmpty(false);
 
         System.out.println("Proceso: "+p.getId() + "\tExecution time: " + pTime + "\t Tiempo final micro: " + this.tiempoTotal);
+    }
+
+    public void wait(int timeToWait){
+        this.setEmpty(true);
+        Proceso hueco = new Proceso("Hueco", timeToWait - this.tiempoTotal);
+        hueco.setTVC(0);
+        hueco.setTB(0);
+        hueco.setTotal(hueco.getExeTime());
+        hueco.settInicial(this.tiempoTotal);
+        hueco.settFinal(this.tiempoTotal+hueco.getExeTime());
+        this.tiempoTotal += hueco.getExeTime();
+        this.terminados.add(hueco);
+        System.out.println("Hueco de " + hueco.getExeTime() +"ms en  Micro: " + this.id +", tiempo total = " + this.getTiempoTotal());
     }
 
     public int calculateBlock(Proceso p) {
@@ -81,4 +99,11 @@ public class Micro implements Comparable<Micro> {
         return 0;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public ArrayList<Proceso> getTerminados() {
+        return terminados;
+    }
 }
