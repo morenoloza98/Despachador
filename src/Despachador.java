@@ -49,6 +49,14 @@ public class Despachador
         }
     }
 
+    public void deleteHole(){
+        for (Micro micro : listaMicros) {
+            if(micro.getTerminados().get(micro.getTerminados().size()-1).getId() == "Hueco")
+                micro.setTiempoTotal(micro.getTiempoTotal() - (micro.getTerminados().get(micro.getTerminados().size()-1)).getExeTime());
+                micro.getTerminados().remove(micro.getTerminados().size()-1);
+        }
+    }
+
     public Micro chooseMicro(){
         Micro min = Collections.min(listaMicros);
         return min;

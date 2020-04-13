@@ -59,6 +59,7 @@ public class Main
         x.hacerHuecos(8000);
         lista.add(nn);
         x.despacha();
+        x.deleteHole();
         x.imprimirTablas();
 
     }

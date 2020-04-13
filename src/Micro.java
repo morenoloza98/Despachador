@@ -106,4 +106,8 @@ public class Micro implements Comparable<Micro> {
     public ArrayList<Proceso> getTerminados() {
         return terminados;
     }
+
+    public void setTiempoTotal(int tiempoTotal){
+        this.tiempoTotal = tiempoTotal;
+    }
 }
