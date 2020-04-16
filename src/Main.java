@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -30,8 +31,9 @@ public class Main
         int B = 15;
         int numMicros = 2;
 
-        Queue<Proceso> lista = new LinkedList<Proceso>();
-        Despachador x = new Despachador(lista,numMicros,CC,Q,B);
+        ArrayList<Proceso> lista = new ArrayList<Proceso>();
+        //Queue<Proceso> lista = new LinkedList<Proceso>();
+        Despachador x = new Despachador(lista,numMicros,CC,Q,B);        // lista debe ser ArraList ahora
 
         // PRIMER LOTE - Inicio
         lista.add(b);

@@ -5,13 +5,14 @@ import java.util.Queue;
 
 public class Despachador
 {
-    private Queue<Proceso> listaProcesos = new LinkedList<Proceso>();    // dinámica para que entren y salgan procesos.
+    private ArrayList<Proceso> listaProcesos = new ArrayList<>();   // lista simple con los procesos
+    private Queue<Proceso> colaProcesos = new LinkedList<Proceso>();    // cola para que entren y salgan procesos.
     private int cc;
     private int q;
     private int b;
     private ArrayList<Micro> listaMicros = new ArrayList<Micro>();
 
-    public Despachador(Queue<Proceso> listaProcesos, int nMicros, int cc, int q, int b) {
+    public Despachador(ArrayList<Proceso> listaProcesos, int nMicros, int cc, int q, int b) {
         this.listaProcesos = listaProcesos;
         this.cc = cc;
         this.q = q;
@@ -29,13 +30,35 @@ public class Despachador
         }
     }
 
+    public void startDispatch() {
+        /* Este proceso simula lo que teníamos anteriormente afuera en Main.
+        * A partir de una lista de procesos ordenada por tiempos de entrada,
+        * Los va metiendo a la cola y despachando. Usa una variable startTime para
+        * detectar cuando pasamos al siguiente tiempo de entrada.
+        * Añade a la cola uno a uno de los procesos, cuando hay un cambio de tiempo de lote,
+        * los despacha y crea los huecos hasta dicho tiempo.*/
+
+        int startTime = 0;
+        for (int i=0; i<listaProcesos.size(); i++) {
+            // ciclo que recorre todos los procesos de la lista simple
+            if (listaProcesos.get(i).getEntryTime() != startTime) {
+                this.despacha();
+                this.detectarHuecos( listaProcesos.get(i).getEntryTime() );
+            }
+            colaProcesos.add(listaProcesos.get(i));     // en cada vuelta agrega el proceso a la cola.
+        }
+        // al final del ciclo queda un proceso por despachar en la cola.
+        this.despacha();
+        this.deleteHole();
+    }
+
     public void  despacha() {
         // Discriminar por tiempos de micro,
-        while (listaProcesos.size()!=0){
+        while (colaProcesos.size()!=0){
             // debe leer los tiempos de todos los micros y escoger el de menor tiempo, cuidando prioridad de id.
             // el de menor tiempo se le asigna y procesa el primer proceso en la cola.
-            System.out.println("Proceso " + listaProcesos.peek().getId() + " a:" + this.chooseMicro());
-            this.chooseMicro().process(listaProcesos.remove());
+            System.out.println("Proceso " + colaProcesos.peek().getId() + " a:" + this.chooseMicro());
+            this.chooseMicro().process(colaProcesos.remove());
         }
         // en teoría ya acabamos los procesos en este punto. Se quedan no-vacíos por ahora.
         System.out.println("Finished processing batch. ");
