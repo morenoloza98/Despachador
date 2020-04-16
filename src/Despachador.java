@@ -49,9 +49,9 @@ public class Despachador
         }
     }
 
-    public void deleteHole(){
+    public void deleteHole() {
         for (Micro micro : listaMicros) {
-            if(micro.getTerminados().get(micro.getTerminados().size()-1).getId() == "Hueco"){
+            if(micro.getTerminados().get(micro.getTerminados().size()-1).getId() == "Hueco") {
                 micro.setTiempoTotal(micro.getTiempoTotal() - (micro.getTerminados().get(micro.getTerminados().size()-1)).getExeTime());
                 micro.getTerminados().remove(micro.getTerminados().size()-1);
             }

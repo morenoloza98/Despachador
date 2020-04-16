@@ -6,31 +6,32 @@ public class Main
     // aquí iría el código de la gui
     public static void main(String[] args) {
         // Crear procesos
-        Proceso a = new Proceso("A",400);
-        Proceso b = new Proceso("B",300);
-        Proceso c = new Proceso("C",50);
-        Proceso d = new Proceso("D",100);
-        Proceso e = new Proceso("E",1000);
-        Proceso f = new Proceso("F",500);
-        Proceso g = new Proceso("G",10);
-        Proceso h = new Proceso("H",700);
-        Proceso i = new Proceso("I",450);
-        Proceso j = new Proceso("J",300);
-        Proceso k = new Proceso("K",100);
-        Proceso l = new Proceso("L",3000);
-        Proceso m = new Proceso("M",80);
-        Proceso n = new Proceso("N",50);
-        Proceso nn = new Proceso("Ñ",500);
-        Proceso o = new Proceso("O",600);
-        Proceso p = new Proceso("P",800);
+        Proceso a = new Proceso("A",400, 3000);
+        Proceso b = new Proceso("B",300, 0);
+        Proceso c = new Proceso("C",50, 3000);
+        Proceso d = new Proceso("D",100, 0);
+        Proceso e = new Proceso("E",1000, 3000);
+        Proceso f = new Proceso("F",500, 0);
+        Proceso g = new Proceso("G",10, 3000);
+        Proceso h = new Proceso("H",700, 0);
+        Proceso i = new Proceso("I",450, 3000);
+        Proceso j = new Proceso("J",300, 1500);
+        Proceso k = new Proceso("K",100, 4000);
+        Proceso l = new Proceso("L",3000, 1500);
+        Proceso m = new Proceso("M",80, 4000);
+        Proceso n = new Proceso("N",50, 1500);
+        Proceso nn = new Proceso("Ñ",500, 8000);
+        Proceso o = new Proceso("O",600, 1500);
+        Proceso p = new Proceso("P",800, 4000);
 
         // Constantes y creación de Despachador
         int CC = 15;
         int Q = 3000;
         int B = 15;
+        int numMicros = 2;
 
         Queue<Proceso> lista = new LinkedList<Proceso>();
-        Despachador x = new Despachador(lista,2,CC,Q,B);
+        Despachador x = new Despachador(lista,numMicros,CC,Q,B);
 
         // PRIMER LOTE - Inicio
         lista.add(b);

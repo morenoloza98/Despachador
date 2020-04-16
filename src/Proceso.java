@@ -2,6 +2,7 @@ public class Proceso
 {
     private String id;
     private int exeTime;
+    private int minInitTime;
     private int TCC =0;     // por default es 0
     private int TVC;
     private int TB;
@@ -10,9 +11,10 @@ public class Proceso
     private int tFinal;
 
 
-    public Proceso(String id, int exeTime) {
+    public Proceso(String id, int exeTime, int minInitTime) {
         this.id = id;
         this.exeTime = exeTime;
+        this.minInitTime = minInitTime;
     }
 
     public int getExeTime() {
@@ -55,6 +57,10 @@ public class Proceso
         this.total = total;
     }
 
+    public void setMinInitTime(int minInitTime){
+        this.minInitTime = minInitTime;
+    }
+
     public int getTCC() {
         return TCC;
     }
@@ -73,5 +79,9 @@ public class Proceso
 
     public int gettInicial() {
         return tInicial;
+    }
+
+    public int getMinInitTime(){
+        return minInitTime;
     }
 }

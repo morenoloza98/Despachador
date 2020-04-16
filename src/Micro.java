@@ -43,7 +43,7 @@ public class Micro implements Comparable<Micro> {
 
     public void wait(int timeToWait){
         this.setEmpty(true);
-        Proceso hueco = new Proceso("Hueco", timeToWait - this.tiempoTotal);
+        Proceso hueco = new Proceso("Hueco", timeToWait - this.tiempoTotal, 0);
         hueco.setTVC(0);
         hueco.setTB(0);
         hueco.setTotal(hueco.getExeTime());
