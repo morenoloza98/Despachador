@@ -41,7 +41,7 @@ public class Despachador
         System.out.println("Finished processing batch. ");
     }
 
-    public void hacerHuecos(int nextStartTime) {
+    public void detectarHuecos(int nextStartTime) {
         for (Micro m: listaMicros) {
             if (m.getTiempoTotal()<nextStartTime) {
                 m.wait(nextStartTime);
