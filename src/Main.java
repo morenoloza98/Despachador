@@ -32,6 +32,7 @@ public class Main extends JFrame
                 Despachador x = new Despachador(lista, micros, contexto, quantum, bloqueo);
                 // Procesamiento de los datos
                 x.startDispatch(); //process se refiere a la clase donde realizar toda la asignación
+                x.imprimirTablas();
 
             }
             catch (NumberFormatException e)
@@ -49,8 +50,8 @@ public class Main extends JFrame
         JButton boton = new JButton("Enviar");
         JLabel titulo = new JLabel("DESPACHADOR");
         JLabel enrique = new JLabel("Enrique Orduña - A01339605");
-        JLabel eric = new JLabel("Eric Jardón - A01027318");
-        JLabel alex = new JLabel("Alejandro Moreno - A01027318");
+        JLabel eric = new JLabel("Eric Jardón - A01376748");
+        JLabel alex = new JLabel("Alejandro Moreno - A01654319");
         JLabel micros = new JLabel("Micros:");
         JLabel quantum = new JLabel("Quantum:");
         JLabel contexto = new JLabel("C Contexto:");
@@ -104,6 +105,7 @@ public class Main extends JFrame
         add(contextoTF);
         add(bloqueoTF);
         add(boton);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(650, 430);
         setLayout(null);
         setVisible(true);

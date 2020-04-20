@@ -10,12 +10,6 @@ public class pruebas {
         int B = 15;
         ArrayList<Proceso> lista = new ArrayList<Proceso>();
 
-        /*for (int i=0; i<5; i++){
-            int exeTime = new Random().nextInt(1000) +1;
-            Proceso p = new Proceso(Integer.toString(i),exeTime);
-            lista.add(p);       // supuestamente al final de la lista
-            System.out.println("Proceso: "+p.getId() + ", TE =" +p.getExeTime());
-        }*/
         Proceso a = new Proceso("A",400, 3000);
         Proceso b = new Proceso("B",300, 0);
         Proceso c = new Proceso("C",50, 3000);
