@@ -25,10 +25,10 @@ public class Main
         Proceso p = new Proceso("P",800, 4000);
 
         // Constantes y creación de Despachador
-        int CC = 15;
+        int CC = 10;
         int Q = 3000;
-        int B = 15;
-        int numMicros = 2;
+        int B = 10;
+        int numMicros =1;
 
         Queue<Proceso> lista = new LinkedList<Proceso>();
         Despachador x = new Despachador(lista,numMicros,CC,Q,B);

@@ -67,6 +67,8 @@ public class Despachador
     }
 
     public void imprimirTablas(){
+        ImpresionTablas it = new ImpresionTablas(listaMicros);
+        it.createAndShowGUI(listaMicros);
         for (Micro m: listaMicros){
             System.out.println("Micro: " + m.getId());
             System.out.println("Proceso\t TCC\t TE \t TVC\t TB \t TT \t TI \t TF");
