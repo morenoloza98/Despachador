@@ -84,4 +84,12 @@ public class Proceso
     public int getEntryTime(){
         return entryTime;
     }
+
+    @Override
+    public String toString() {
+        return "Proceso{" +
+                "id='" + id + '\'' +
+                ", exeTime=" + exeTime +
+                '}';
+    }
 }

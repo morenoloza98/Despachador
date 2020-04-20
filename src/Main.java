@@ -1,80 +1,9 @@
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-/*
-public class Tuchi
-{
-    // aquí iría el código de la gui
-    public static void main(String[] args) {
-        // Crear procesos
-        Proceso a = new Proceso("A",400, 3000);
-        Proceso b = new Proceso("B",300, 0);
-        Proceso c = new Proceso("C",50, 3000);
-        Proceso d = new Proceso("D",100, 0);
-        Proceso e = new Proceso("E",1000, 3000);
-        Proceso f = new Proceso("F",500, 0);
-        Proceso g = new Proceso("G",10, 3000);
-        Proceso h = new Proceso("H",700, 0);
-        Proceso i = new Proceso("I",450, 3000);
-        Proceso j = new Proceso("J",300, 1500);
-        Proceso k = new Proceso("K",100, 4000);
-        Proceso l = new Proceso("L",3000, 1500);
-        Proceso m = new Proceso("M",80, 4000);
-        Proceso n = new Proceso("N",50, 1500);
-        Proceso nn = new Proceso("Ñ",500, 8000);
-        Proceso o = new Proceso("O",600, 1500);
-        Proceso p = new Proceso("P",800, 4000);
-
-        // Constantes y creación de Despachador
-        int CC = 15;
-        int Q = 3000;
-        int B = 15;
-        int numMicros = 2;
-
-        ArrayList<Proceso> lista = new ArrayList<Proceso>();
-        //Queue<Proceso> lista = new LinkedList<Proceso>();
-        Despachador x = new Despachador(lista,numMicros,CC,Q,B);        // lista debe ser ArraList ahora
-
-        // PRIMER LOTE - Inicio
-        lista.add(b);
-        lista.add(d);
-        lista.add(f);
-        lista.add(h);
-        x.despacha();
-        x.detectarHuecos(1500);
-        lista.add(j);
-        lista.add(l);
-        lista.add(n);
-        lista.add(o);
-        x.despacha();
-        x.detectarHuecos(3000);
-        lista.add(a);
-        lista.add(c);
-        lista.add(e);
-        lista.add(g);
-        lista.add(i);
-        x.despacha();
-        x.detectarHuecos(4000);
-        lista.add(k);
-        lista.add(m);
-        lista.add(p);
-        x.despacha();
-        x.detectarHuecos(8000);
-        lista.add(nn);
-        x.despacha();
-        x.deleteHole();
-        x.imprimirTablas();
-
-    }
-}*/
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-//Variables globales
+
 
 public class Main extends JFrame
 {
@@ -82,43 +11,6 @@ public class Main extends JFrame
     private JTextField quantumTF;
     private JTextField contextoTF;
     private JTextField bloqueoTF;
-    // Aquí deberíamos declarar los procesos y la lista simple
-    List<Proceso> lista = new ArrayList<Proceso>() {{
-        Proceso a = new Proceso("A",400, 3000);
-        Proceso b = new Proceso("B",300, 0);
-        Proceso c = new Proceso("C",50, 3000);
-        Proceso d = new Proceso("D",100, 0);
-        Proceso e = new Proceso("E",1000, 3000);
-        Proceso f = new Proceso("F",500, 0);
-        Proceso g = new Proceso("G",10, 3000);
-        Proceso h = new Proceso("H",700, 0);
-        Proceso i = new Proceso("I",450, 3000);
-        Proceso j = new Proceso("J",300, 1500);
-        Proceso k = new Proceso("K",100, 4000);
-        Proceso l = new Proceso("L",3000, 1500);
-        Proceso m = new Proceso("M",80, 4000);
-        Proceso n = new Proceso("N",50, 1500);
-        Proceso nn = new Proceso("Ñ",500, 8000);
-        Proceso o = new Proceso("O",600, 1500);
-        Proceso p = new Proceso("P",800, 4000);
-        lista.add(b);
-        lista.add(d);
-        lista.add(f);
-        lista.add(h);
-        lista.add(j);
-        lista.add(l);
-        lista.add(n);
-        lista.add(o);
-        lista.add(a);
-        lista.add(c);
-        lista.add(e);
-        lista.add(g);
-        lista.add(i);
-        lista.add(k);
-        lista.add(m);
-        lista.add(p);
-        lista.add(nn);
-    }};
 
     private ActionListener EnviarDatos = new ActionListener()
     {
@@ -132,36 +24,15 @@ public class Main extends JFrame
                 int quantum = Integer.parseInt(quantumTF.getText());
                 int contexto = Integer.parseInt(contextoTF.getText());
                 int bloqueo = Integer.parseInt(bloqueoTF.getText());
-
-                Despachador x = new Despachador((ArrayList<Proceso>)lista, micros, quantum, contexto, bloqueo);
+                ArrayList<Proceso> lista = populateList();
+                System.out.println(micros);
+                System.out.println(quantum);
+                System.out.println(contexto);
+                System.out.println(bloqueo);
+                Despachador x = new Despachador(lista, micros, contexto, quantum, bloqueo);
                 // Procesamiento de los datos
                 x.startDispatch(); //process se refiere a la clase donde realizar toda la asignación
 
-				/*
-
-				Mandas los datos  tu clase que reciba los elementos
-
-				public datos(List<Process> processes, int microsNumber, int quantumTime, int contextChangeTime, int lockTime) {
-				mMicroprocessors = new ArrayList<>();
-				for (int i = 0; i < microsNumber; ++i) {
-					mMicroprocessors.add(new Microprocessor(i));
-				}
-				mProcesses = processes;
-				mQuantumTime = quantumTime;
-				mContextChangeTime = contextChangeTime;
-				mLockTime = lockTime;
-				}
-				*/
-
-                // Cada micro cuenta con sus procesos ahora
-				/*
-				Donde tengas la asiganción de los micros es tu getter
-
-				public Microprocessor getMicroprocessor(int i)
-				{
-					return mMicroprocessors.get(i);
-				}
-				*/
             }
             catch (NumberFormatException e)
             {
@@ -189,7 +60,7 @@ public class Main extends JFrame
         contextoTF = new JTextField();
         bloqueoTF = new JTextField();
 
-        //Posicionamiento de los elementos
+        // Posicionamiento de los elementos
         titulo.setBounds(50, 50, 300, 60);
         enrique.setBounds(330, 50, 200, 40);
         eric.setBounds(330, 90, 200, 40);
@@ -239,6 +110,46 @@ public class Main extends JFrame
         getContentPane().setBackground(new Color(115, 185, 255));
         //Listeners
         boton.addActionListener(EnviarDatos);
+    }
+
+    public ArrayList<Proceso> populateList() {
+        ArrayList<Proceso> lista = new ArrayList<>();
+        Proceso a = new Proceso("A",400, 3000);
+        Proceso b = new Proceso("B",300, 0);
+        Proceso c = new Proceso("C",50, 3000);
+        Proceso d = new Proceso("D",100, 0);
+        Proceso e = new Proceso("E",1000, 3000);
+        Proceso f = new Proceso("F",500, 0);
+        Proceso g = new Proceso("G",10, 3000);
+        Proceso h = new Proceso("H",700, 0);
+        Proceso i = new Proceso("I",450, 3000);
+        Proceso j = new Proceso("J",300, 1500);
+        Proceso k = new Proceso("K",100, 4000);
+        Proceso l = new Proceso("L",3000, 1500);
+        Proceso m = new Proceso("M",80, 4000);
+        Proceso n = new Proceso("N",50, 1500);
+        Proceso nn = new Proceso("Ñ",500, 8000);
+        Proceso o = new Proceso("O",600, 1500);
+        Proceso p = new Proceso("P",800, 4000);
+        lista.add(b);
+        lista.add(d);
+        lista.add(f);
+        lista.add(h);
+        lista.add(j);
+        lista.add(l);
+        lista.add(n);
+        lista.add(o);
+        lista.add(a);
+        lista.add(c);
+        lista.add(e);
+        lista.add(g);
+        lista.add(i);
+        lista.add(k);
+        lista.add(m);
+        lista.add(p);
+        lista.add(nn);
+        System.out.println("Populated list succesfully");
+        return lista;
     }
 
     public static void main(String[] args)
