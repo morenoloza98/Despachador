@@ -7,9 +7,8 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.Color;
-
-import java.awt.Dimension;
 import java.awt.GridLayout;
+
 import java.util.ArrayList;
 
 public class ImpresionTablas extends JPanel {
