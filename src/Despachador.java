@@ -74,8 +74,9 @@ public class Despachador
 
     public void deleteHole() {
         for (Micro micro : listaMicros) {
-            if(micro.getTerminados().get(micro.getTerminados().size()-1).getId() == "Hueco") {
-                micro.setTiempoTotal(micro.getTiempoTotal() - (micro.getTerminados().get(micro.getTerminados().size()-1)).getExeTime());
+            Proceso ultimo = micro.getTerminados().get(micro.getTerminados().size()-1);
+            if(ultimo.getId() == "Hueco") {
+                micro.setTiempoTotal(micro.getTiempoTotal() - (ultimo).getExeTime());
                 micro.getTerminados().remove(micro.getTerminados().size()-1);
             }
         }
@@ -96,8 +97,13 @@ public class Despachador
             System.out.println("Micro: " + m.getId());
             System.out.println("Proceso\t TCC\t TE \t TVC\t TB \t TT \t TI \t TF");
             for (Proceso p : m.getTerminados()){
-                System.out.format("%3s%8d%8d%8d%8d%8d%8d%8d%n", p.getId(), p.getTCC(), p.getExeTime(), p.getTVC(), p.getTB(),
-                        p.getTotal(), p.gettInicial(), p.gettFinal());
+                if (p.getId()!="Hueco"){
+                    System.out.format("%3s%8d%8d%8d%8d%8d%8d%8d%n", p.getId(), p.getTCC(), p.getExeTime(), p.getTVC(), p.getTB(),
+                    p.getTotal(), p.gettInicial(), p.gettFinal());
+                }else{
+                    System.out.format("%3s%8d%8d%8d%8d%8d%8d%8d%n", p.getId(), p.getTCC(), 0, p.getTVC(), p.getTB(),
+                            p.getTotal(), p.gettInicial(), p.gettFinal());
+                }
             }
             System.out.println("Tiempo total Micro " + m.getId() + " = " + m.getTiempoTotal());
             System.out.println();

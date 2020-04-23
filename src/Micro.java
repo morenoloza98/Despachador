@@ -38,20 +38,36 @@ public class Micro implements Comparable<Micro> {
         this.terminados.add(p);
         this.setEmpty(false);
 
-        System.out.println("Proceso: "+p.getId() + "\tExecution time: " + pTime + "\t Tiempo final micro: " + this.tiempoTotal);
+        //System.out.println("Proceso: "+p.getId() + "\tExecution time: " + pTime + "\t Tiempo final micro: " + this.tiempoTotal);
     }
 
     public void wait(int timeToWait){
-        this.setEmpty(true);
-        Proceso hueco = new Proceso("Hueco", timeToWait - this.tiempoTotal, 0);
-        hueco.setTVC(0);
-        hueco.setTB(0);
-        hueco.setTotal(hueco.getExeTime());
-        hueco.settInicial(this.tiempoTotal);
-        hueco.settFinal(this.tiempoTotal+hueco.getExeTime());
-        this.tiempoTotal += hueco.getExeTime();
-        this.terminados.add(hueco);
-        System.out.println("Hueco de " + hueco.getExeTime() +"ms en  Micro: " + this.id +", tiempo total = " + this.getTiempoTotal());
+        // si la listaTerminados no está vacía, checar si el último de la listaTerminados es un hueco.
+        // si sí es hueco, le sumamos a su tiempo final el tiempo para el siguiente lote.
+        // si sí está vacía, o no es hueco, entonces creamos el hueco.
+        if (lastIsHole()){
+            Proceso ultimo = this.getTerminados().get(this.getTerminados().size() - 1);
+            ultimo.setTotal(ultimo.getTotal() + (timeToWait - this.tiempoTotal));
+        } else{
+            this.setEmpty(true);
+            Proceso hueco = new Proceso("Hueco", timeToWait - this.tiempoTotal, 0);
+            hueco.setTVC(0);
+            hueco.setTB(0);
+            hueco.setTotal(hueco.getExeTime());
+            hueco.settInicial(this.tiempoTotal);
+            hueco.settFinal(this.tiempoTotal + hueco.getExeTime());
+            this.tiempoTotal += hueco.getExeTime();
+            this.terminados.add(hueco);
+            System.out.println("Hueco de " + hueco.getExeTime() + "ms en  Micro: " + this.id + ", tiempo total = " + this.getTiempoTotal());
+        }
+    }
+
+    public boolean lastIsHole(){
+        if (!this.getTerminados().isEmpty()) {
+            return (terminados.get(terminados.size()-1).getId() == "Hueco");
+        } else {
+            return false;
+        }
     }
 
     public int calculateBlock(Proceso p) {

@@ -24,6 +24,10 @@ public class Main extends JFrame
                 int quantum = Integer.parseInt(quantumTF.getText());
                 int contexto = Integer.parseInt(contextoTF.getText());
                 int bloqueo = Integer.parseInt(bloqueoTF.getText());
+                if (micros<1 || quantum<1 || contexto<0 || bloqueo<0) {
+                    throw new Exception("Input number error");
+                }
+
                 ArrayList<Proceso> lista = populateList();
                 System.out.println(micros);
                 System.out.println(quantum);
@@ -37,8 +41,10 @@ public class Main extends JFrame
             }
             catch (NumberFormatException e)
             {
-                System.out.println(e.getMessage());
-                System.exit(1);
+                JOptionPane.showMessageDialog(null, "Inputs deben ser números enteros.");
+            } catch (Exception e) {
+                // crear una alerta de swing de error;
+                JOptionPane.showMessageDialog(null,"Error en los valores ingresados.");
             }
         }
     };

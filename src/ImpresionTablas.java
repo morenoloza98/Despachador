@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 
 import java.awt.Color;
@@ -15,7 +16,7 @@ public class ImpresionTablas extends JPanel {
 
     public ImpresionTablas(ArrayList<Micro> micros) {
         
-        super(new GridLayout(micros.size(),0));
+        super(new GridLayout(1,0));
 
         ArrayList<Micro> microsList = micros;
         ArrayList<Proceso> procesos = new ArrayList<>();
@@ -40,7 +41,11 @@ public class ImpresionTablas extends JPanel {
             for(Proceso p: procesos){
                 proceso = p.getId();
                 tcc = p.getTCC();
-                te = p.getExeTime();
+                if (p.getId()!="Hueco"){
+                    te = p.getExeTime();
+                }else{
+                    te = 0;
+                }
                 tvc = p.getTVC(); 
                 tb = p.getTB();
                 tt = p.getTotal(); 
@@ -49,9 +54,13 @@ public class ImpresionTablas extends JPanel {
                 Object[] tableRow = {proceso,tcc,te,tvc,tb,tt,ti,tf};
                 tableModel.addRow(tableRow);
             }
-            
 
-            final JTable table = new JTable();
+
+            final JTable table = new JTable(){
+                public boolean isCellEditable(int row, int column) {
+                    return false;
+                }
+            };
             table.setModel(tableModel);
             table.setPreferredScrollableViewportSize(table.getPreferredSize());
             table.setFillsViewportHeight(true);
@@ -59,8 +68,7 @@ public class ImpresionTablas extends JPanel {
             
             panel.add(scrollPane);
             panel.setBackground(new Color(115, 185, 255));
-            JScrollPane scrollPaneForPanel = new JScrollPane(panel);
-            add(scrollPaneForPanel);
+            add(panel);
         }
 
     }
@@ -72,8 +80,8 @@ public class ImpresionTablas extends JPanel {
         //Create and set up the content pane.
         ImpresionTablas newContentPane = new ImpresionTablas(microsListCreate);
         newContentPane.setOpaque(true); //content panes must be opaque
-        frame.setContentPane(newContentPane);
-        //Display the window.
+        JScrollPane scrollPane = new JScrollPane(newContentPane);
+        frame.setContentPane(scrollPane);
         frame.pack();
         frame.setVisible(true);
     }
