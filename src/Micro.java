@@ -41,14 +41,16 @@ public class Micro implements Comparable<Micro> {
         //System.out.println("Proceso: "+p.getId() + "\tExecution time: " + pTime + "\t Tiempo final micro: " + this.tiempoTotal);
     }
 
-    public void wait(int timeToWait){
+    public void wait(int timeToWait) {
         // si la listaTerminados no está vacía, checar si el último de la listaTerminados es un hueco.
         // si sí es hueco, le sumamos a su tiempo final el tiempo para el siguiente lote.
         // si sí está vacía, o no es hueco, entonces creamos el hueco.
-        if (lastIsHole()){
+        if (lastIsHole()) {
             Proceso ultimo = this.getTerminados().get(this.getTerminados().size() - 1);
             ultimo.setTotal(ultimo.getTotal() + (timeToWait - this.tiempoTotal));
-        } else{
+            ultimo.settFinal(ultimo.getTotal());
+            this.tiempoTotal += timeToWait - this.tiempoTotal;
+        } else {
             this.setEmpty(true);
             Proceso hueco = new Proceso("Hueco", timeToWait - this.tiempoTotal, 0);
             hueco.setTVC(0);

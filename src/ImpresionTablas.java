@@ -43,16 +43,20 @@ public class ImpresionTablas extends JPanel {
                 tcc = p.getTCC();
                 if (p.getId()!="Hueco"){
                     te = p.getExeTime();
+                    tvc = p.getTVC();
+                    tb = p.getTB();
+                    tt = p.getTotal();
+                    ti = p.gettInicial();
+                    tf = p.gettFinal();
+                    Object[] tableRow = {proceso,tcc,te,tvc,tb,tt,ti,tf};
+                    tableModel.addRow(tableRow);
                 }else{
-                    te = 0;
+                    tt = p.getTotal();
+                    ti = p.gettInicial();
+                    tf = p.gettFinal();
+                    Object[] tableRow = {proceso,"","","","",tt,ti,tf};
+                    tableModel.addRow(tableRow);
                 }
-                tvc = p.getTVC(); 
-                tb = p.getTB();
-                tt = p.getTotal(); 
-                ti = p.gettInicial();
-                tf = p.gettFinal();
-                Object[] tableRow = {proceso,tcc,te,tvc,tb,tt,ti,tf};
-                tableModel.addRow(tableRow);
             }
 
 
